@@ -5,7 +5,8 @@
 		<fieldType name="integer" class="IntPointField"/>
 		<fieldType name="long" class="LongPointField"/>
 		<fieldType name="float" class="FloatPointField"/>
-		<fieldType name="date" class="DatePointField"/>
+<!--		<fieldType name="date" class="DatePointField"/>-->
+		<fieldType name="date" class="StrField"/>
 		<fieldType name="random" class="RandomSortField"/>
 		<fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
 			<analyzer type="index">
@@ -123,7 +124,8 @@
 		<field name="source" type="unchanged_string" indexed="true" stored="true" multiValued="true" required="false"/>
 		<field name="relation" type="unchanged_string" indexed="true" stored="true" multiValued="true" required="false"/>
 		<field name="rights" type="unchanged_string" indexed="true" stored="true" multiValued="false" required="false"/>
-		<field name="date" type="date" indexed="true" stored="true" multiValued="true" required="false"/>
+<!--		<field name="date" type="date" indexed="true" stored="true" multiValued="true" required="false"/>-->
+		<field name="date" type="unchanged_string" indexed="true" stored="true" multiValued="true" required="false"/>
 		<field name="scope_has_related_records" type="unchanged_string" indexed="true" stored="false" multiValued="true"/>
 
 		<!-- Field to get random titles -->

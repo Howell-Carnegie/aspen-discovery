@@ -71,6 +71,17 @@ function getUpdates24_09_00(): array {
 
 		//James Staub - Nashville Public Library
 
+		//Jeremy Eden - Howell Carnegie District Library
+		'add_openarchives_dateformatting_field' => [
+			'title' => 'Add Open Archives date formatting setting',
+			'description' => 'Add Open Archives date formatting setting',
+			'continueOnError' => false,
+			'sql' => [
+				'ALTER TABLE open_archives_collection ADD COLUMN dateFormatting varchar(10) default "yes_format"',
+				'UPDATE open_archives_collection set dateFormatting = "yes_format"',
+			]
+		], //add_defaultContent_field
+
 
 		//other
 
