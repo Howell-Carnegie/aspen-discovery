@@ -1,5 +1,5 @@
 <?php
-
+require_once ROOT_DIR . '/sys/SelfRegistrationForms/SelfRegistrationTerms.php';
 class CarlXSelfRegistrationForm extends DataObject {
 	public $__table = 'self_registration_form_carlx';
 	public $id;
@@ -14,11 +14,20 @@ class CarlXSelfRegistrationForm extends DataObject {
 	public $lastPatronBarcode;
 	public $barcodePrefix;
 	public $selfRegIDNumberLength;
+	public $termsOfServiceSetting;
 
 	private $_libraries;
 
 	static function getObjectStructure($context = ''): array {
 		$libraryList = Library::getLibraryList(!UserAccount::userHasPermission('Administer All Libraries'));
+
+		$selfRegistrationTerms = [];
+		$selfRegistrationTOS = new SelfRegistrationTerms();
+		$selfRegistrationTOS->find();
+		$selfRegistrationTerms[-1] = 'None';
+		while ($selfRegistrationTOS->fetch()) {
+			$selfRegistrationTerms[$selfRegistrationTOS->id] = (string)$selfRegistrationTOS->name;
+		}
 
 		return [
 			'id' => [
@@ -34,6 +43,12 @@ class CarlXSelfRegistrationForm extends DataObject {
 				'description' => 'The name of the settings',
 				'size' => '40',
 				'maxLength' => 255,
+			],
+			'termsOfServiceSetting' => [
+				'property' => 'termsOfServiceSetting',
+				'type' => 'enum',
+				'values' => $selfRegistrationTerms,
+				'label' => 'Terms of Service Form',
 			],
 			'selfRegEmailNotices' => [
 				'property' => 'selfRegEmailNotices',
