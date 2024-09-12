@@ -188,7 +188,7 @@ public class OaiIndexerMain {
 						String setName = collectionsRS.getString("setName");
 						boolean indexAllSets = collectionsRS.getBoolean("indexAllSets");
 						String metadataFormat = collectionsRS.getString("metadataFormat");
-						String dateFormatting = collectionsRS.getString("dateFormatting");
+						long dateFormatting = collectionsRS.getLong("dateFormatting");
 						String subjectFilterString = collectionsRS.getString("subjectFilters");
 						boolean loadOneMonthAtATime = collectionsRS.getBoolean("loadOneMonthAtATime");
 						boolean deleted = collectionsRS.getBoolean("deleted");
@@ -242,7 +242,7 @@ public class OaiIndexerMain {
 		}
 	}
 
-	private static void extractAndIndexOaiCollection(String collectionName, long collectionId, String metadataFormat, String dateFormatting, boolean deleted, ArrayList<Pattern> subjectFilters, String baseUrl, boolean indexAllSets, String setNames, long currentTime, boolean loadOneMonthAtATime, HashSet<String> scopesToInclude) {
+	private static void extractAndIndexOaiCollection(String collectionName, long collectionId, String metadataFormat, long dateFormatting, boolean deleted, ArrayList<Pattern> subjectFilters, String baseUrl, boolean indexAllSets, String setNames, long currentTime, boolean loadOneMonthAtATime, HashSet<String> scopesToInclude) {
 		if (!deleted) {
 			long startTime = new Date().getTime() / 1000;
 			//Get the existing records for the collection
@@ -532,7 +532,7 @@ public class OaiIndexerMain {
 		}
 	}
 
-	private static boolean indexElement(Element curRecordElement, Long collectionId, String collectionName, ArrayList<Pattern> subjectFilters, String dateFormatting, Set<String> collectionSubjects, OpenArchivesExtractLogEntry logEntry, HashSet<String> scopesToInclude, Long startTime) {
+	private static boolean indexElement(Element curRecordElement, Long collectionId, String collectionName, ArrayList<Pattern> subjectFilters, long dateFormatting, Set<String> collectionSubjects, OpenArchivesExtractLogEntry logEntry, HashSet<String> scopesToInclude, Long startTime) {
 		OAISolrRecord solrRecord = new OAISolrRecord();
 		solrRecord.setCollectionId(collectionId);
 		solrRecord.setCollectionName(collectionName);
@@ -824,10 +824,10 @@ public class OaiIndexerMain {
 		return addedToIndex;
 	}
 
-	private static void addDatesToRecord(OAISolrRecord solrRecord, String textContent, OpenArchivesExtractLogEntry logEntry, String dateFormatting) {
+	private static void addDatesToRecord(OAISolrRecord solrRecord, String textContent, OpenArchivesExtractLogEntry logEntry, long dateFormatting) {
 		String[] dateRange;
 
-		if(dateFormatting.equals("yes_format")) {
+		if(dateFormatting==1) {
 			if (textContent.contains(";")) {
 				dateRange = textContent.split(";");
 			} else if (textContent.contains(" -- ")) {

@@ -91,8 +91,8 @@ class OpenArchivesCollection extends DataObject {
 				'property' => 'dateFormatting',
 				'type' => 'enum',
 				'values' => [
-					'no_format' => 'Do no date formatting',
-					'yes_format' => 'Convert to Date Format',
+					0 => 'Do no date formatting',
+					1 => 'Convert to Date Format',
 				],
 				'label' => 'Date Formatting',
 				'description' => 'Either take date exactly how metadata is formatted in the collection or attempt to change to a date format (this is how it worked before)',

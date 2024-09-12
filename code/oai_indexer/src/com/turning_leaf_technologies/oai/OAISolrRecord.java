@@ -72,8 +72,8 @@ class OAISolrRecord {
 
 	Pattern datePattern = Pattern.compile("\\d{2,4}(-\\d{2,4}){0,2}");
 
-	void addDates(String[] dates, Logger logger, String dateFormatting) {
-		if(dateFormatting.equals("yes_format")) {
+	void addDates(String[] dates, Logger logger, long dateFormatting) {
+		if(dateFormatting==1) {
 			for (String date : dates) {
 				if (AspenStringUtils.isNumeric(date)) {
 					this.date.add(new DateInfo(1, 1, Integer.parseInt(date)).getSolrDate());
